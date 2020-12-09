@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              leading: Icon(Icons.add),
+              leading: Icon(Icons.done_outline_outlined),
               title: Text(todoList[index]['target']),
               subtitle: Text(
                   "時間：${todoList[index]['time']} BGM：${todoList[index]['bgm']}"),
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
                 );
               },
-              trailing: Icon(Icons.add),
+              trailing: Icon(Icons.arrow_forward_ios),
             ),
           );
         },
