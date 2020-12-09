@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+.firebase
 
 # IntelliJ related
 *.iml
@@ -26,6 +27,8 @@
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.firebase.json
+.firebaserc
 .packages
 .pub-cache/
 .pub/

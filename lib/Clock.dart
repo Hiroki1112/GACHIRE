@@ -131,8 +131,8 @@ class _ClockState extends State<Clock> {
 //ここを書き換える
   void _onTimer(Timer timer) {
     if (_countdown == 0.0) {
-      timer.cancel();
       _controller.dispose();
+      timer.cancel();
     } else if (_countdown > 0) {
       if (_countdown.toInt() == _first_check && first_flag) {
         first_flag = false;
