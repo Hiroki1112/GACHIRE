@@ -112,7 +112,9 @@ class _ClockState extends State<Clock> {
       Duration(milliseconds: 10),
       _onTimer,
     );
-    _controller = VideoPlayerController.asset(bgmlists[widget.params['bgm']]);
+    // _controller = VideoPlayerController.asset(bgmlists[widget.params['bgm']]);
+    _controller =
+        VideoPlayerController.asset('assets/${bgmlists[widget.params['bgm']]}');
     _controller.setLooping(true);
     _controller.initialize().then((_) {
       setState(() {});
