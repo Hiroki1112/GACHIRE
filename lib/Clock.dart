@@ -102,9 +102,19 @@ class _ClockState extends State<Clock> {
 
     aorindex = random.nextInt(first_aories.length);
     _aori_text = first_aories[aorindex];
-    _countdown = double.parse(widget.params['time']);
 
+    //
+    var _textTime = widget.params['time'];
+    var _textHour = _textTime.split("時間");
+    var _textMin = _textHour[1].split("分");
+    var _textSec = _textMin[1].split("秒");
+
+    //_countdown => 秒数に直す(double型)
+    _countdown = double.parse(_textHour[0]) * 3600 +
+        double.parse(_textMin[0]) * 60 +
+        double.parse(_textSec[0]);
     //5残り50%と10%の時間を
+    print(_countdown);
     _first_check = _countdown.toInt() ~/ 2;
     _second_check = _countdown.toInt() ~/ 10;
 
@@ -112,7 +122,7 @@ class _ClockState extends State<Clock> {
       Duration(milliseconds: 10),
       _onTimer,
     );
-    // _controller = VideoPlayerController.asset(bgmlists[widget.params['bgm']]);
+
     _controller =
         VideoPlayerController.asset('assets/${bgmlists[widget.params['bgm']]}');
     _controller.setLooping(true);
