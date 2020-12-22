@@ -125,14 +125,6 @@ class _ClockState extends State<Clock> {
       Duration(milliseconds: 10),
       _onTimer,
     );
-    _controller =
-        VideoPlayerController.asset('bgm/${bgmlists[widget.params['bgm']]}');
-    _controller.setLooping(true);
-    _controller.setVolume(0);
-    _controller.initialize().then((_) {
-      setState(() {});
-    });
-    _controller.play();
 
     // 煽り文を音声で流す
     // とりあえずaori1-1.mp3流す（後で煽り文と対応させる）
@@ -143,6 +135,16 @@ class _ClockState extends State<Clock> {
       setState(() {});
     });
     _aorier.play();
+
+    _controller =
+        VideoPlayerController.asset('bgm/${bgmlists[widget.params['bgm']]}');
+    _controller.setLooping(true);
+    _controller.setVolume(_volume);
+    _controller.initialize().then((_) {
+      setState(() {});
+    });
+
+    _controller.play();
   }
 
   @override
