@@ -22,6 +22,7 @@ class _ClockState extends State<Clock> {
   bool secound_flag = true;
   var _aori_text;
   VideoPlayerController _controller;
+  double _volume = 1.0;
 
   int aorindex;
   List<String> aories = [
@@ -83,7 +84,7 @@ class _ClockState extends State<Clock> {
     '逃げちゃだめだ。',
     'あきらめないことだ。一度あきらめると習慣になる',
     '止まるんじゃねぇぞ…',
-    '諦めた瞬間とは、君以外の誰かが成功する瞬間である。'
+    '諦める瞬間とは、君以外の誰かが成功する瞬間である。'
   ];
 
 // Map<曲名, ファイル名>
@@ -114,7 +115,6 @@ class _ClockState extends State<Clock> {
         double.parse(_textMin[0]) * 60 +
         double.parse(_textSec[0]);
     //5残り50%と10%の時間を
-    print(_countdown);
     _first_check = _countdown.toInt() ~/ 2;
     _second_check = _countdown.toInt() ~/ 10;
 
@@ -126,6 +126,7 @@ class _ClockState extends State<Clock> {
     _controller =
         VideoPlayerController.asset('assets/${bgmlists[widget.params['bgm']]}');
     _controller.setLooping(true);
+    _controller.setVolume(_volume);
     _controller.initialize().then((_) {
       setState(() {});
     });
@@ -142,18 +143,22 @@ class _ClockState extends State<Clock> {
 
 //ここを書き換える
   void _onTimer(Timer timer) {
-    if (_countdown == 0.0) {
+    if (_countdown < 0.01) {
       _controller.dispose();
       timer.cancel();
     } else if (_countdown > 0) {
+      // 1/2地点
       if (_countdown.toInt() == _first_check && first_flag) {
         first_flag = false;
+        _controller.setPlaybackSpeed(1.2);
         setState(() {
           aorindex = random.nextInt(second_aories.length);
           _aori_text = second_aories[aorindex];
         });
+        //1/10地点
       } else if (_countdown.toInt() == _second_check && secound_flag) {
         secound_flag = false;
+        _controller.setPlaybackSpeed(1.5);
         setState(() {
           aorindex = random.nextInt(third_aories.length);
           _aori_text = third_aories[aorindex];
@@ -180,32 +185,57 @@ class _ClockState extends State<Clock> {
         body: Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           Container(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.volume_mute),
+                Slider(
+                  value: _volume,
+                  min: 0,
+                  max: 1,
+                  divisions: 10,
+                  label: _volume.toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _volume = value;
+                      _controller.setVolume(_volume);
+                      // print(_volume);
+                    });
+                  },
+                ),
+                Icon(Icons.volume_up_rounded),
+              ],
+            ),
+          ),
+          Container(
               padding: EdgeInsets.all(25),
               child: Text(
                 "～${widget.params['target']}の達成まで～",
                 style: TextStyle(fontSize: 30),
               )),
           Container(
+              padding: EdgeInsets.all(15),
               child: Text(_time,
                   style: TextStyle(
-                    fontSize: 90.0,
+                    fontSize: 70.0,
                     fontFamily: 'IBMPlexMono',
                   ))),
           Container(
-            padding: EdgeInsets.all(25),
-            child: Text("${_aori_text}", style: TextStyle(fontSize: 30)),
+            padding: EdgeInsets.all(15),
+            height: 100,
+            child: Text("${_aori_text}", style: TextStyle(fontSize: 25)),
           ),
           Container(
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.all(20),
             child: ButtonTheme(
-              minWidth: 200.0,
-              height: 100.0,
+              minWidth: 120.0,
+              height: 60.0,
               child: RaisedButton(
-                elevation: 5,
+                elevation: 10,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("諦める"),
+                child: Text("諦める", style: TextStyle(fontSize: 16)),
               ),
             ),
           ),

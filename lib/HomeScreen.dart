@@ -33,7 +33,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
                 );
               },
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: ButtonTheme(
+                minWidth: 30,
+                child: RaisedButton(
+                  color: Colors.white,
+                  elevation: 0,
+                  child: Icon(Icons.delete_outline, color: Colors.red),
+                  onPressed: () {
+                    //削除処理
+
+                    setState(() {
+                      todoList.removeAt(index);
+                    });
+                  },
+                  splashColor: Colors.red,
+                ),
+              ),
             ),
           );
         },

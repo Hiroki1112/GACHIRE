@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'dart:convert';
-import 'Clock.dart';
+import 'PickerDatas.dart';
 
 class AddScreen extends StatefulWidget {
   static String id = 'add_screen';
@@ -139,8 +139,8 @@ class _AddState extends State<AddScreen> {
           isArray: true,
         ),
         hideHeader: true,
-        selecteds: [3, 0, 0],
-        title: Text("Please Select"),
+        selecteds: [3, 30, 0],
+        title: Text("時間：分：秒で指定してください"),
         selectedTextStyle: TextStyle(color: Colors.blue),
         cancel: FlatButton(
             onPressed: () {
@@ -168,7 +168,7 @@ class _AddState extends State<AddScreen> {
         ),
         hideHeader: true,
         selecteds: [0],
-        title: Text("Please Select"),
+        title: Text("リストから選択してください"),
         selectedTextStyle: TextStyle(color: Colors.blue),
         cancel: FlatButton(
             onPressed: () {
@@ -183,21 +183,3 @@ class _AddState extends State<AddScreen> {
         }).showDialog(context);
   }
 }
-
-// var hour = new List<int>.generate(23, (i) => i + 1);
-// var min = new List<int>.generate(59, (i) => i + 1);
-// var sec = new List<int>.generate(59, (i) => i + 1);
-
-const PickerData2 = '''
-[
-    [0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14],
-    [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59],
-    [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
-]
-    ''';
-
-const PickerBGM = '''
-[
-  ["白日","海","英雄の証","六月の遠雷","セビーリャの砦","プラネット・ナイン"]
-]
-    ''';
