@@ -21,7 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              leading: Icon(Icons.done_outline_outlined),
+              leading: Icon(
+                Icons.done_outline_outlined,
+                color: Colors.orangeAccent,
+              ),
               title: Text(todoList[index]['target']),
               subtitle: Text(
                   "時間：${todoList[index]['time']} BGM：${todoList[index]['bgm']}"),
