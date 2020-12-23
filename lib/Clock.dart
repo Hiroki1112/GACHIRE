@@ -28,8 +28,9 @@ class _ClockState extends State<Clock> {
   bool first_flag = true;
   bool secound_flag = true;
   var _aori_text;
-  VideoPlayerController _controller, _aorier;
+  VideoPlayerController _controller, _aorier, _bomber;
   double _volume = 0.2;
+  bool _notend = true;
 
   int aorindex;
 
@@ -144,6 +145,13 @@ class _ClockState extends State<Clock> {
       setState(() {});
     });
 
+    _bomber = VideoPlayerController.asset('effects/bomb1.mp3');
+    _bomber.setLooping(false);
+    _bomber.setVolume(1.0);
+    _bomber.initialize().then((_) {
+      setState(() {});
+    });
+
     _controller.play();
   }
 
@@ -155,11 +163,32 @@ class _ClockState extends State<Clock> {
     super.dispose();
   }
 
+  Container RestTimeWidget() {
+    if (_countdown < 0.01) {
+      return Container(
+          child: Image(
+        image: AssetImage('images/bakuen.gif'),
+        fit: BoxFit.cover,
+      ));
+      ;
+    } else {
+      return Container(
+          padding: EdgeInsets.all(15),
+          child: Text(_time,
+              style: TextStyle(
+                fontSize: 70.0,
+                fontFamily: 'IBMPlexMono',
+              )));
+    }
+  }
+
 //ここを書き換える
   void _onTimer(Timer timer) {
     if (_countdown < 0.01) {
+      _notend = false;
       _controller.dispose();
       timer.cancel();
+      _bomber.play();
     } else if (_countdown > 0) {
       // 1/2地点
       if (_countdown.toInt() == _first_check && first_flag) {
@@ -171,13 +200,12 @@ class _ClockState extends State<Clock> {
         });
         //煽り文を再生する。
 
-        _aorier =
-            VideoPlayerController.asset('aori/${second_aories[aorindex][1]}');
+        /*_aorier =VideoPlayerController.asset('aori/${second_aories[aorindex][1]}');
         _aorier.setLooping(false);
         _aorier.initialize().then((_) {
           setState(() {});
         });
-        _aorier.play();
+        _aorier.play();*/
 
         //1/10地点
       } else if (_countdown.toInt() == _second_check && secound_flag) {
@@ -189,13 +217,14 @@ class _ClockState extends State<Clock> {
         });
         //煽り文を再生する。
 
-        _aorier =
+        /*_aorier =
             VideoPlayerController.asset('aori/${third_aories[aorindex][1]}');
         _aorier.setLooping(false);
         _aorier.initialize().then((_) {
           setState(() {});
         });
-        _aorier.play();
+        _aorier.play();*/
+
       }
       _countdown -= 0.01;
     }
@@ -227,12 +256,13 @@ class _ClockState extends State<Clock> {
                   min: 0,
                   max: 1,
                   divisions: 10,
-                  label: _volume.toString(),
+                  label: (_volume * 100).toString(),
                   onChanged: (double value) {
                     setState(() {
-                      _volume = value;
-                      _controller.setVolume(_volume);
-                      // print(_volume);
+                      if (_notend) {
+                        _volume = value;
+                        _controller.setVolume(_volume);
+                      }
                     });
                   },
                 ),
@@ -246,13 +276,7 @@ class _ClockState extends State<Clock> {
                 "～${widget.params['target']}の達成まで～",
                 style: TextStyle(fontSize: 30),
               )),
-          Container(
-              padding: EdgeInsets.all(15),
-              child: Text(_time,
-                  style: TextStyle(
-                    fontSize: 70.0,
-                    fontFamily: 'IBMPlexMono',
-                  ))),
+          RestTimeWidget(),
           Container(
             padding: EdgeInsets.all(15),
             height: 100,

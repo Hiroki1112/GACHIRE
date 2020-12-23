@@ -58,8 +58,11 @@ class _AddState extends State<AddScreen> {
         appBar: AppBar(
           title: Text("GACHIRE"), //leading: Container()
         ),
-        body: Center(
-            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        body: SingleChildScrollView(
+            child: Center(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          Container(padding: EdgeInsets.only(top: 40)),
           Container(
             padding: EdgeInsets.all(10),
             child: Text("目標を入力してください", style: TextStyle(fontSize: 30)),
@@ -129,7 +132,7 @@ class _AddState extends State<AddScreen> {
               ),
             ),
           ),
-        ])));
+        ]))));
   }
 
   showPickerArray(BuildContext context) {

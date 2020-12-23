@@ -51,6 +51,8 @@ flutter:
   assets:
       - bgm/
       - aori/
+      - effects/
+      - images/
       # assets/assets/bgm
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
