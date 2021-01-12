@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'PickerDatas.dart';
+import './valModel.dart';
 
 class AddScreen extends StatefulWidget {
-  static String id = 'add_screen';
+  List<ValModel> data;
   @override
+  AddScreen({this.data});
   _AddState createState() => _AddState();
 }
 
@@ -24,6 +27,38 @@ class _AddState extends State<AddScreen> {
 
   void _setBgm(String text) {
     setState(() => _bgm = text);
+  }
+
+  Future<void> _setValue(count) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // 保存データを作成
+    /*
+    final countJson = json.encode({
+      'target': count["target"],
+      'time': count["time"],
+      'bgm': count["bgm"]
+    });
+    */
+    // キーがあるかを確認
+    if (!prefs.containsKey('DataList')) {
+      //print("1");
+      List<ValModel> valList = [];
+      valList.add(count);
+      List<String> valtmp =
+          valList.map((val) => json.encode(val.toJson())).toList();
+      await prefs.setStringList('DataList', valtmp);
+      //print("Done");
+    } else {
+      //print("2");
+      //既存のリストを読み込む
+      List<ValModel> oldData = widget.data;
+      oldData.add(count);
+      List<String> valtmp =
+          oldData.map((val) => json.encode(val.toJson())).toList();
+      await prefs.setStringList('DataList', valtmp);
+      //print("Done2!");
+    }
   }
 
   Container TimerWidget() {
@@ -122,10 +157,16 @@ class _AddState extends State<AddScreen> {
               child: RaisedButton(
                 elevation: 25,
                 onPressed: () {
-                  var returntexts = Map();
+                  //var returntexts = Map();
+                  ValModel returntexts =
+                      ValModel(target: _target, time: _time, bgm: _bgm);
+                  /*
                   returntexts['target'] = _target;
                   returntexts['time'] = _time;
                   returntexts['bgm'] = _bgm;
+                  //Navigator.of(context).pop(returntexts);
+                  */
+                  _setValue(returntexts);
                   Navigator.of(context).pop(returntexts);
                 },
                 child: Text("追加", style: TextStyle(fontSize: 20)),

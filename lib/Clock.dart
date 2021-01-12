@@ -109,7 +109,7 @@ class _ClockState extends State<Clock> {
     _aori_text = first_aories[aorindex][0];
 
     //
-    var _textTime = widget.params['time'];
+    var _textTime = widget.params.time;
     var _textHour = _textTime.split("時間");
     var _textMin = _textHour[1].split("分");
     var _textSec = _textMin[1].split("秒");
@@ -130,6 +130,7 @@ class _ClockState extends State<Clock> {
     // 煽り文を音声で流す
     // とりあえずaori1-1.mp3流す（後で煽り文と対応させる）
     _aorier = VideoPlayerController.asset('aori/${first_aories[0][1]}');
+    _aorier.setVolume(_volume);
     // _aorier = VideoPlayerController.asset('aori/${first_aories[aorindex][1]}');
     _aorier.setLooping(false);
     _aorier.initialize().then((_) {
@@ -138,7 +139,7 @@ class _ClockState extends State<Clock> {
     _aorier.play();
 
     _controller =
-        VideoPlayerController.asset('bgm/${bgmlists[widget.params['bgm']]}');
+        VideoPlayerController.asset('bgm/${bgmlists[widget.params.bgm]}');
     _controller.setLooping(true);
     _controller.setVolume(_volume);
     _controller.initialize().then((_) {
@@ -160,6 +161,7 @@ class _ClockState extends State<Clock> {
     // 破棄される時に停止する.
     _timer.cancel();
     _controller.dispose();
+
     super.dispose();
   }
 
@@ -185,6 +187,7 @@ class _ClockState extends State<Clock> {
 //ここを書き換える
   void _onTimer(Timer timer) {
     if (_countdown < 0.01) {
+      _aori_text = "よくやった"; // 終わったときの文
       _notend = false;
       _controller.dispose();
       timer.cancel();
@@ -273,7 +276,7 @@ class _ClockState extends State<Clock> {
           Container(
               padding: EdgeInsets.all(25),
               child: Text(
-                "～${widget.params['target']}の達成まで～",
+                "～${widget.params.target}の達成まで～",
                 style: TextStyle(fontSize: 30),
               )),
           RestTimeWidget(),
