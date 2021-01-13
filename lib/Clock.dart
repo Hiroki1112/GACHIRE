@@ -31,6 +31,7 @@ class _ClockState extends State<Clock> {
   VideoPlayerController _controller, _aorier, _bomber;
   double _volume = 0.2;
   bool _notend = true;
+  var _buttonText = '諦める';
 
   int aorindex;
 
@@ -158,11 +159,12 @@ class _ClockState extends State<Clock> {
 
   @override
   void dispose() {
-    // 破棄される時に停止する.
-    _timer.cancel();
-    _controller.dispose();
-
     super.dispose();
+    // 破棄される時に停止する.
+    _controller.dispose();
+    _timer.cancel();
+    _bomber.dispose();
+    _aorier.dispose();
   }
 
   Container RestTimeWidget() {
@@ -172,7 +174,6 @@ class _ClockState extends State<Clock> {
         image: AssetImage('images/bakuen.gif'),
         fit: BoxFit.cover,
       ));
-      ;
     } else {
       return Container(
           padding: EdgeInsets.all(15),
@@ -187,9 +188,11 @@ class _ClockState extends State<Clock> {
 //ここを書き換える
   void _onTimer(Timer timer) {
     if (_countdown < 0.01) {
+      _buttonText = '終わりを告げる';
       _aori_text = "よくやった"; // 終わったときの文
       _notend = false;
-      _controller.dispose();
+      _controller.pause();
+
       timer.cancel();
       _bomber.play();
     } else if (_countdown > 0) {
@@ -295,7 +298,7 @@ class _ClockState extends State<Clock> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("諦める", style: TextStyle(fontSize: 16)),
+                child: Text(_buttonText, style: TextStyle(fontSize: 16)),
               ),
             ),
           ),

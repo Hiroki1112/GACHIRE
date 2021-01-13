@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_player/video_player.dart';
 import 'dart:async';
 import './Add.dart';
 import './Clock.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<ValModel> todoList = [];
+  VideoPlayerController _effecter;
 
   Future<String> _fetchData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -44,6 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _effecter = VideoPlayerController.asset('effects/33.mp3');
+    _effecter.setLooping(false);
+    _effecter.setVolume(1.0);
+    _effecter.initialize().then((_) {
+      setState(() {});
+    });
   }
 
   @override
@@ -85,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Icon(Icons.delete_outline, color: Colors.red),
                             onPressed: () {
                               //削除処理
-
+                              _effecter.play();
                               setState(() {
                                 _deleteData(index);
                               });
@@ -103,6 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () async {
           // "push"で新規画面に遷移
           // リスト追加画面から渡される値を受け取る
+          _effecter.play();
+
           ValModel newListText = await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
               // 遷移先の画面としてリスト追加画面を指定

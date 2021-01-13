@@ -78,7 +78,7 @@ class _AddState extends State<AddScreen> {
     } else {
       return Container(
         padding: EdgeInsets.all(10),
-        child: Text(_bgm, style: TextStyle(fontSize: 20)),
+        child: Text(_bgm, style: TextStyle(fontSize: 20, fontFamily: '')),
       );
     }
   }
