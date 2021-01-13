@@ -42,22 +42,18 @@ class _AddState extends State<AddScreen> {
     */
     // キーがあるかを確認
     if (!prefs.containsKey('DataList')) {
-      //print("1");
       List<ValModel> valList = [];
       valList.add(count);
       List<String> valtmp =
           valList.map((val) => json.encode(val.toJson())).toList();
       await prefs.setStringList('DataList', valtmp);
-      //print("Done");
     } else {
-      //print("2");
       //既存のリストを読み込む
       List<ValModel> oldData = widget.data;
       oldData.add(count);
       List<String> valtmp =
           oldData.map((val) => json.encode(val.toJson())).toList();
       await prefs.setStringList('DataList', valtmp);
-      //print("Done2!");
     }
   }
 
@@ -158,6 +154,14 @@ class _AddState extends State<AddScreen> {
                 elevation: 25,
                 onPressed: () {
                   //var returntexts = Map();
+
+                  if (_time == '') {
+                    _time = '0時間30分0秒';
+                  }
+                  if (_bgm == '') {
+                    _bgm = '英雄の証';
+                  }
+
                   ValModel returntexts =
                       ValModel(target: _target, time: _time, bgm: _bgm);
                   /*
@@ -183,7 +187,7 @@ class _AddState extends State<AddScreen> {
           isArray: true,
         ),
         hideHeader: true,
-        selecteds: [3, 30, 0],
+        selecteds: [1, 30, 0],
         title: Text("時間：分：秒で指定してください"),
         selectedTextStyle: TextStyle(color: Colors.blue),
         cancel: FlatButton(
@@ -220,9 +224,6 @@ class _AddState extends State<AddScreen> {
             },
             child: Text("cancel")),
         onConfirm: (Picker picker, List value) {
-          //print(value.toString());
-          //print(picker.getSelectedValues());
-
           _setBgm(picker.getSelectedValues()[0]);
         }).showDialog(context);
   }

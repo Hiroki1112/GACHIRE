@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         title: Text(todoList[index].target),
                         subtitle: Text(
-                            "時間：${todoList[index].time} BGM：${todoList[index].bgm}"),
+                            "時間：${todoList[index].time} \nBGM：${todoList[index].bgm}"),
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(builder: (context) {
