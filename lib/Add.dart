@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_player/video_player.dart';
 import 'dart:convert';
-import 'PickerDatas.dart';
+import 'PickerData.dart';
 import './valModel.dart';
 
 class AddScreen extends StatefulWidget {
@@ -13,9 +14,22 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddState extends State<AddScreen> {
+  VideoPlayerController _effecter;
   String _target = '';
   String _time = '';
   String _bgm = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _effecter = VideoPlayerController.asset('effects/33.mp3');
+    _effecter.setLooping(false);
+    _effecter.setVolume(1.0);
+    _effecter.initialize().then((_) {
+      setState(() {});
+    });
+  }
 
   void _setTarget(String text) {
     setState(() => _target = text);
@@ -32,14 +46,6 @@ class _AddState extends State<AddScreen> {
   Future<void> _setValue(count) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // 保存データを作成
-    /*
-    final countJson = json.encode({
-      'target': count["target"],
-      'time': count["time"],
-      'bgm': count["bgm"]
-    });
-    */
     // キーがあるかを確認
     if (!prefs.containsKey('DataList')) {
       List<ValModel> valList = [];
@@ -96,7 +102,7 @@ class _AddState extends State<AddScreen> {
           Container(padding: EdgeInsets.only(top: 40)),
           Container(
             padding: EdgeInsets.all(10),
-            child: Text("目標を入力してください", style: TextStyle(fontSize: 30)),
+            child: Text("「使命」を定めよ", style: TextStyle(fontSize: 30)),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -113,12 +119,12 @@ class _AddState extends State<AddScreen> {
           ),
           Container(
             padding: EdgeInsets.all(10),
-            child: Text("時間を入力してください", style: TextStyle(fontSize: 30)),
+            child: Text("「刻」を定めよ", style: TextStyle(fontSize: 30)),
           ),
           TimerWidget(),
           Container(
-            padding: EdgeInsets.all(10),
-            width: 300.0,
+            padding: EdgeInsets.all(30),
+            width: MediaQuery.of(context).size.width * 0.7,
             child: RaisedButton(
               child: Text('時間入力ボタン'),
               onPressed: () {
@@ -128,35 +134,32 @@ class _AddState extends State<AddScreen> {
           ),
           Container(
             padding: EdgeInsets.all(10),
-            child: Text("BGMを選択してください", style: TextStyle(fontSize: 30)),
+            child: Text("「旋律」を定めよ", style: TextStyle(fontSize: 30)),
           ),
           BGMWidget(),
           Container(
-            padding: EdgeInsets.all(10),
-            width: 300.0,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              width: 300.0,
-              child: RaisedButton(
-                child: Text('BGM選択ボタン'),
-                onPressed: () {
-                  showBGMPicker(context);
-                },
-              ),
+            padding: EdgeInsets.all(30),
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: RaisedButton(
+              child: Text('BGM選択ボタン'),
+              onPressed: () {
+                showBGMPicker(context);
+              },
             ),
           ),
           Container(
             padding: EdgeInsets.all(30),
+            width: MediaQuery.of(context).size.width * 0.7,
             child: ButtonTheme(
-              minWidth: 150.0,
-              height: 75.0,
+              height: 55,
               child: RaisedButton(
+                color: Theme.of(context).primaryColor,
                 elevation: 25,
                 onPressed: () {
                   //var returntexts = Map();
 
                   if (_time == '') {
-                    _time = '0時間30分0秒';
+                    _time = '30分0秒';
                   }
                   if (_bgm == '') {
                     _bgm = '英雄の証';
@@ -187,8 +190,8 @@ class _AddState extends State<AddScreen> {
           isArray: true,
         ),
         hideHeader: true,
-        selecteds: [1, 30, 0],
-        title: Text("時間：分：秒で指定してください"),
+        selecteds: [30, 0],
+        title: Text("分：秒で指定せよ"),
         selectedTextStyle: TextStyle(color: Colors.blue),
         cancel: FlatButton(
             onPressed: () {
@@ -200,10 +203,8 @@ class _AddState extends State<AddScreen> {
           //print(picker.getSelectedValues());
 
           _setTime(picker.getSelectedValues()[0] +
-              "時間" +
-              picker.getSelectedValues()[1] +
               "分" +
-              picker.getSelectedValues()[2] +
+              picker.getSelectedValues()[1] +
               "秒");
         }).showDialog(context);
   }
@@ -216,7 +217,7 @@ class _AddState extends State<AddScreen> {
         ),
         hideHeader: true,
         selecteds: [0],
-        title: Text("リストから選択してください"),
+        title: Text("リストから選択せよ"),
         selectedTextStyle: TextStyle(color: Colors.blue),
         cancel: FlatButton(
             onPressed: () {
