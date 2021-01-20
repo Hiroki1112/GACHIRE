@@ -1,6 +1,6 @@
-# gachire2
+# gachire
 
-A new Flutter project.
+enPITで作成。やる気の出るタイマーアプリ。
 
 ## Getting Started
 

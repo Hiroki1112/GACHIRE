@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<ValModel> todoList = [];
-  VideoPlayerController _effecter;
+  VideoPlayerController _effecter, _trasher;
 
   Future<String> _fetchData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -49,7 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
     _effecter = VideoPlayerController.asset('effects/33.mp3');
     _effecter.setLooping(false);
     _effecter.setVolume(1.0);
-    _effecter.initialize().then((_) {
+    _effecter.initialize();
+    _trasher = VideoPlayerController.asset('effects/pop.mp3');
+    _trasher.setLooping(false);
+    _trasher.setVolume(1.0);
+    _trasher.initialize().then((_) {
       setState(() {});
     });
   }
@@ -93,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Icon(Icons.delete_outline, color: Colors.red),
                             onPressed: () {
                               //削除処理
-                              _effecter.play();
+                              _trasher.play();
                               setState(() {
                                 _deleteData(index);
                               });

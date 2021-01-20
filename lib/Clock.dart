@@ -29,6 +29,7 @@ class _ClockState extends State<Clock> {
   bool secound_flag = true;
   var _aori_text;
   VideoPlayerController _controller, _aorier, _bomber, _effecter, _heartBeart;
+
   double _volume = 0.2;
   bool _notend = true;
   var _buttonText = '諦める';
@@ -102,7 +103,7 @@ class _ClockState extends State<Clock> {
     '白日': 'hakujitsu.mp3'
   };
 
-  void playEffects(String filename) async {
+  void playEffects(String filename) {
     print('effects/${filename}');
     VideoPlayerController _eff =
         VideoPlayerController.asset('effects/${filename}');
@@ -111,7 +112,7 @@ class _ClockState extends State<Clock> {
     _eff.initialize().then((_) {
       setState(() {});
     });
-    await _eff.play();
+    _eff.play();
     _eff.dispose();
   }
 
@@ -165,7 +166,7 @@ class _ClockState extends State<Clock> {
     _bomber.initialize();
 
     _heartBeart = VideoPlayerController.asset('effects/Heart_Beat01-1L.mp3');
-    _heartBeart.setLooping(false);
+    _heartBeart.setLooping(true);
     _heartBeart.setVolume(1.0);
     _heartBeart.initialize();
 
@@ -326,6 +327,7 @@ class _ClockState extends State<Clock> {
                               FlatButton(
                                 child: Text("諦めない"),
                                 onPressed: () {
+                                  playEffects("Glocken02-1Low-Long.mp3");
                                   Navigator.of(context).pop(false);
                                 },
                               ),
@@ -338,8 +340,8 @@ class _ClockState extends State<Clock> {
                                   }),
                             ],
                           );
-                        },
-                      );
+                        },                      );
+                      _heartBeart.pause();
                       if (res != null && res) Navigator.of(context).pop();
                     },
                     child: Text(_buttonText, style: TextStyle(fontSize: 16)),
@@ -368,16 +370,17 @@ class _ClockState extends State<Clock> {
                                     Navigator.of(context).pop(false),
                               ),
                               FlatButton(
-                                child: Text("達成！"),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true),
-                              ),
+                                  child: Text("達成！"),
+                                  onPressed: () {
+                                    setState(() {
+                                      _countdown = 0.04;
+                                    });
+                                    Navigator.of(context).pop(true);
+                                  }),
                             ],
                           );
                         },
                       );
-                      if (res != null && res) Navigator.of(context).pop();
-                    },
                     child: Text("達成", style: TextStyle(fontSize: 16)),
                   ),
                 ),
