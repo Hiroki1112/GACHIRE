@@ -1,4 +1,4 @@
-const appreciations = [
+const APPRECIATIONS = [
   "目標を達成しました。あと10秒で集会所に戻ります",
   "おまえがナンバーワンだ!!",
   "よくやった",
@@ -9,5 +9,8 @@ const appreciations = [
   "MISSION COMPLETE",
   "ゆうしゃは　レベルが　あがった！",
   "YOU ARE THE CHAMPION",
-  "",
+  "勝者が確定しました",
+  "「守護」られた・・・",
+  "あなたは神か",
+  "さあ、次だ",
 ];

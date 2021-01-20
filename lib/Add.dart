@@ -21,9 +21,8 @@ class _AddState extends State<AddScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _effecter = VideoPlayerController.asset('effects/33.mp3');
+    _effecter = VideoPlayerController.asset('effects/oh.mp3');
     _effecter.setLooping(false);
     _effecter.setVolume(1.0);
     _effecter.initialize().then((_) {
@@ -162,7 +161,7 @@ class _AddState extends State<AddScreen> {
                     _time = '30分0秒';
                   }
                   if (_bgm == '') {
-                    _bgm = '英雄の証';
+                    _bgm = '海';
                   }
 
                   ValModel returntexts =
@@ -173,6 +172,7 @@ class _AddState extends State<AddScreen> {
                   returntexts['bgm'] = _bgm;
                   //Navigator.of(context).pop(returntexts);
                   */
+                  _effecter.play();
                   _setValue(returntexts);
                   Navigator.of(context).pop(returntexts);
                 },

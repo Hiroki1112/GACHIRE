@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:async';
 import 'dart:math' as math;
+import './appreciations.dart';
 
 class Aori {
   Aori(this.aori, this.file);
@@ -28,6 +29,7 @@ class _ClockState extends State<Clock> {
   bool first_flag = true;
   bool secound_flag = true;
   var _aori_text;
+
   VideoPlayerController _controller, _aorier, _bomber, _effecter, _heartBeart;
 
   double _volume = 0.2;
@@ -38,28 +40,28 @@ class _ClockState extends State<Clock> {
 
   var first_aories = [
     ['俺、この戦いが終わったら結婚するんだ', 'aori1-1.mp3'],
-    ['始まったか・・・「伝説」が', 'aori1-1.mp3'],
-    ['ここ〇研ゼミでやったところだ！', 'aori1-1.mp3'],
-    ['ショウタイムだ', 'aori1-1.mp3'],
-    ['負けるのはつまらない。だから僕は負けない。', 'aori1-1.mp3'],
-    ['君を退屈から救いに来たんだ', 'aori1-1.mp3'],
-    ['It’s now or never!', 'aori1-1.mp3'],
-    ['いつやるの？今でしょ', 'aori1-1.mp3'],
-    ['乗りかけた船には、ためらわず乗ってしまえ。', 'aori1-1.mp3'],
-    ['お前の道を進め。人には勝手なこと言わせておけ。', 'aori1-1.mp3'],
-    ['大きな目標だ。だからこそチャレンジするんだ。', 'aori1-1.mp3'],
-    ['今できることを明日まで延ばすな', 'aori1-1.mp3'],
-    ['全集中の呼吸！', 'aori1-1.mp3'],
-    ['今日の成果は過去の努力の結果であり、未来はこれからの努力で決まる。', 'aori1-1.mp3'],
-    ['進まざる者は必ず退き、退かざる者は必ず進む。', 'aori1-1.mp3'],
-    ['難しいからやろうとしないのではない。やろうとしないから、難しくなるのだ。', 'aori1-1.mp3'],
+    ['始まったか・・・「伝説」が', 'aori1-2.mp3'],
+    ['ここ〇研ゼミでやったところだ！', 'aori1-3.mp3'],
+    ['ショウタイムだ', 'aori1-4.mp3'],
+    ['負けるのはつまらない。だから僕は負けない。', 'aori1-5.mp3'],
+    ['君を退屈から救いに来たんだ', 'aori1-6.mp3'],
+    ['It’s now or never!', 'aori1-7.mp3'],
+    ['いつやるの？今でしょ', 'aori1-8.mp3'],
+    ['乗りかけた船には、ためらわず乗ってしまえ。', 'aori1-9.mp3'],
+    ['お前の道を進め。人には勝手なこと言わせておけ。', 'aori1-10.mp3'],
+    ['大きな目標だ。だからこそチャレンジするんだ。', 'aori1-11.mp3'],
+    ['今できることを明日まで延ばすな', 'aori1-12.mp3'],
+    ['全集中の呼吸！', 'aori1-13.mp3'],
+    ['今日の成果は過去の努力の結果であり、未来はこれからの努力で決まる。', 'aori1-14.mp3'],
+    ['進まざる者は必ず退き、退かざる者は必ず進む。', 'aori1-15.mp3'],
+    ['難しいからやろうとしないのではない。やろうとしないから、難しくなるのだ。', 'aori1-16.mp3'],
     [
       'Step by step. I can’t see any other way of accomplishing anything.',
-      'aori1-1.mp3'
+      'aori1-17.mp3'
     ],
-    ['不可能を成し遂げるのは可能だ', 'aori1-1.mp3'],
-    ['報われない努力もあるが、成功したものは皆須らく努力している', 'aori1-1.mp3'],
-    ['高ければ高い壁の方が登った時気持ちいいもんな', 'aori1-19.mp3'],
+    ['不可能を成し遂げるのは可能だ', 'aori1-18.mp3'],
+    ['報われない努力もあるが、成功したものは皆須らく努力している', 'aori1-19.mp3'],
+    ['高ければ高い壁の方が登った時気持ちいいもんな', 'aori1-20.mp3'],
   ];
 
   var second_aories = [
@@ -99,8 +101,10 @@ class _ClockState extends State<Clock> {
     '六月の遠雷': 'rokugatsunoenrai.mp3',
     'セビーリャの砦': 'sevillanotoride.mp3',
     'プラネット・ナイン': 'planetnine.mp3',
-    '英雄の証': 'au.mp3',
-    '白日': 'hakujitsu.mp3'
+    'てってってー': 'てってってー.mp3',
+    '民族音楽': '民族音楽.mp3',
+    'オリオンの瞬き': 'オリオンの瞬き.mp3',
+    '気分屋の行進': '気分屋の行進.mp3'
   };
 
   void playEffects(String filename) {
@@ -147,9 +151,8 @@ class _ClockState extends State<Clock> {
 
     // 煽り文を音声で流す
     // とりあえずaori1-1.mp3流す（後で煽り文と対応させる）
-    _aorier = VideoPlayerController.asset('aori/${first_aories[0][1]}');
+    _aorier = VideoPlayerController.asset('aori/${first_aories[aorindex][1]}');
     _aorier.setVolume(_volume);
-    // _aorier = VideoPlayerController.asset('aori/${first_aories[aorindex][1]}');
     _aorier.setLooping(false);
     _aorier.initialize();
     _aorier.play();
@@ -207,7 +210,8 @@ class _ClockState extends State<Clock> {
   void _onTimer(Timer timer) {
     if (_countdown < 0.01) {
       _buttonText = '終わりを告げる';
-      _aori_text = "よくやった"; // 終わったときの文
+      _aori_text =
+          APPRECIATIONS[random.nextInt(APPRECIATIONS.length)]; // 終わったときの文
       _notend = false;
       _controller.pause();
       timer.cancel();
@@ -223,12 +227,13 @@ class _ClockState extends State<Clock> {
         });
         //煽り文を再生する。
 
-        /*_aorier =VideoPlayerController.asset('aori/${second_aories[aorindex][1]}');
+        _aorier =
+            VideoPlayerController.asset('aori/${second_aories[aorindex][1]}');
         _aorier.setLooping(false);
         _aorier.initialize().then((_) {
           setState(() {});
         });
-        _aorier.play();*/
+        _aorier.play();
 
         //1/10地点
       } else if (_countdown.toInt() == _second_check && secound_flag) {
@@ -240,14 +245,13 @@ class _ClockState extends State<Clock> {
         });
         //煽り文を再生する。
 
-        /*_aorier =
+        _aorier =
             VideoPlayerController.asset('aori/${third_aories[aorindex][1]}');
         _aorier.setLooping(false);
         _aorier.initialize().then((_) {
           setState(() {});
         });
-        _aorier.play();*/
-
+        _aorier.play();
       }
       _countdown -= 0.01;
     }
@@ -295,7 +299,7 @@ class _ClockState extends State<Clock> {
           Container(
               padding: EdgeInsets.all(25),
               child: Text(
-                "～${widget.params.target}の達成まで～",
+                "†${widget.params.target}†\nを完遂し世界を救え",
                 style: TextStyle(fontSize: 30),
               )),
           TimeWidget(),
@@ -315,35 +319,38 @@ class _ClockState extends State<Clock> {
                   child: RaisedButton(
                     elevation: 10,
                     onPressed: () async {
-                      _heartBeart.play();
-                      var res = await showDialog(
-                        context: context,
-                        builder: (_) {
-                          return AlertDialog(
-                            title: Text("確認"),
-                            content: Text("諦めたらそこで試合終了ですよ？"),
-                            actions: <Widget>[
-                              // ボタン領域
-                              FlatButton(
-                                child: Text("諦めない"),
-                                onPressed: () {
-                                  playEffects("Glocken02-1Low-Long.mp3");
-                                  Navigator.of(context).pop(false);
-                                },
-                              ),
-                              FlatButton(
-                                  child: Text("諦める",
-                                      style: TextStyle(color: Colors.red)),
+                      if (_notend) {
+                        _heartBeart.play();
+                        var res = await showDialog(
+                          context: context,
+                          builder: (_) {
+                            return AlertDialog(
+                              title: Text("確認"),
+                              content: Text("諦めたらそこで試合終了ですよ？"),
+                              actions: <Widget>[
+                                // ボタン領域
+                                FlatButton(
+                                  child: Text("諦めない"),
                                   onPressed: () {
-                                    playEffects("akirameru.mp3");
-                                    Navigator.of(context).pop(true);
-                                  }),
-                            ],
-                          );
-                        },
-                      );
-                      _heartBeart.pause();
-                      if (res != null && res) Navigator.of(context).pop();
+                                    playEffects("Glocken02-1Low-Long.mp3");
+                                    Navigator.of(context).pop(false);
+                                  },
+                                ),
+                                FlatButton(
+                                    child: Text("諦める",
+                                        style: TextStyle(color: Colors.red)),
+                                    onPressed: () {
+                                      playEffects("akirameru.mp3");
+                                      Navigator.of(context).pop(true);
+                                    }),
+                              ],
+                            );
+                          },
+                        );
+                        _heartBeart.pause();
+                        if (res != null && res) Navigator.of(context).pop();
+                      } else
+                        Navigator.of(context).pop();
                     },
                     child: Text(_buttonText, style: TextStyle(fontSize: 16)),
                   ),
@@ -356,33 +363,35 @@ class _ClockState extends State<Clock> {
                   height: 60.0,
                   child: RaisedButton(
                     elevation: 10,
-                    onPressed: () async {
-                      var res = await showDialog(
-                        context: context,
-                        builder: (_) {
-                          return AlertDialog(
-                            title: Text("確認"),
-                            content: Text("目標を達成しましたか？"),
-                            actions: <Widget>[
-                              // ボタン領域
-                              FlatButton(
-                                child: Text("まだ..."),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                              ),
-                              FlatButton(
-                                  child: Text("達成！"),
-                                  onPressed: () {
-                                    setState(() {
-                                      _countdown = 0.04;
-                                    });
-                                    Navigator.of(context).pop(true);
-                                  }),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                    onPressed: !_notend
+                        ? null
+                        : () async {
+                            var res = await showDialog(
+                              context: context,
+                              builder: (_) {
+                                return AlertDialog(
+                                  title: Text("確認"),
+                                  content: Text("目標を達成しましたか？"),
+                                  actions: <Widget>[
+                                    // ボタン領域
+                                    FlatButton(
+                                      child: Text("まだ..."),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                    ),
+                                    FlatButton(
+                                        child: Text("達成！"),
+                                        onPressed: () {
+                                          setState(() {
+                                            _countdown = 0.04;
+                                          });
+                                          Navigator.of(context).pop(true);
+                                        }),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                     child: Text("達成", style: TextStyle(fontSize: 16)),
                   ),
                 ),

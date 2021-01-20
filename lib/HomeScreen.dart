@@ -63,6 +63,29 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("GACHIRE"),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.help),
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: Text("説明"),
+                      content: Text(
+                          "アプリの使い方はGithubに掲載しています。\nhttps://github.com/Hiroki1112/GACHIRE"),
+                      actions: <Widget>[
+                        // ボタン領域
+                        FlatButton(
+                          child: Text("戻る"),
+                          onPressed: () => Navigator.of(context).pop(false),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }),
+        ],
       ),
       body: Center(
           child: FutureBuilder(
