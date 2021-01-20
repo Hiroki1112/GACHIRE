@@ -340,7 +340,8 @@ class _ClockState extends State<Clock> {
                                   }),
                             ],
                           );
-                        },                      );
+                        },
+                      );
                       _heartBeart.pause();
                       if (res != null && res) Navigator.of(context).pop();
                     },
@@ -381,6 +382,7 @@ class _ClockState extends State<Clock> {
                           );
                         },
                       );
+                    },
                     child: Text("達成", style: TextStyle(fontSize: 16)),
                   ),
                 ),
