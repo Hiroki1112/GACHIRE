@@ -298,9 +298,14 @@ class _ClockState extends State<Clock> {
           ),
           Container(
               padding: EdgeInsets.all(25),
-              child: Text(
-                "†${widget.params.target}†\nを完遂し世界を救え",
-                style: TextStyle(fontSize: 30),
+              child: Column(
+                children: [
+                  Text(
+                    "†${widget.params.target}†",
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  Text("を完遂し世界を救え")
+                ],
               )),
           TimeWidget(),
           Container(

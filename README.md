@@ -1,3 +1,4 @@
+![Icon-512](https://user-images.githubusercontent.com/47981983/105155841-6ed59580-5b4e-11eb-93c0-6ad047aba6a7.png)
 # GACHIRE by Oysters
 
 GACHIREは、作業中についついだらけてしまう、ズボラで怠惰なあなたのための作業効率化タイマーです。
@@ -21,9 +22,8 @@ iOS端末かAndroid端末からのアクセスを推奨します。
 (PCからは文字化けしちゃいます...ごめんなさい...)
 ## Author
 ### 作成者
-Oysters(岩下大樹, 大畠奏真, 笹口翔伍, 山本航輝)
-### 所属
-広島大学情報科学部
+Oysters(@Hiroki1112, @Oobatake-Souma, @SasaguchiShogo, @koki1113)
+
 
 ___
 
@@ -32,3 +32,14 @@ ___
   <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps"><img src="https://mdn.mozillademos.org/files/16742/pwa.png" height="45px;" /></a>
   <a href="https://www.netlify.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Netlify_logo.svg/221px-Netlify_logo.svg.png" height="40px;" /></a>
 </p>
+___
+
+# Slides
+
+![1](https://user-images.githubusercontent.com/47981983/105506981-00d7cc80-5d0e-11eb-97a7-5a636e8043f2.png)
+![2](https://user-images.githubusercontent.com/47981983/105507012-059c8080-5d0e-11eb-999b-15aa3f565056.png)
+![3](https://user-images.githubusercontent.com/47981983/105507019-07feda80-5d0e-11eb-9464-c6b6b8f9b29f.png)
+![4](https://user-images.githubusercontent.com/47981983/105507026-09300780-5d0e-11eb-874a-961421db8a88.png)
+![5](https://user-images.githubusercontent.com/47981983/105507030-09c89e00-5d0e-11eb-9f39-6897fa95922a.png)
+![6](https://user-images.githubusercontent.com/47981983/105507033-0a613480-5d0e-11eb-9368-71561af02fae.png)
+![7](https://user-images.githubusercontent.com/47981983/105507035-0af9cb00-5d0e-11eb-95f3-7b00f64b33ca.png)
