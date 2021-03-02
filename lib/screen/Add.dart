@@ -3,8 +3,8 @@ import 'package:flutter_picker/flutter_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:convert';
-import 'PickerData.dart';
-import './valModel.dart';
+import '../const/PickerData.dart';
+import '../model/valModel.dart';
 
 class AddScreen extends StatefulWidget {
   List<ValModel> data;

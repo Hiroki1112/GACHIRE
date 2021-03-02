@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:async';
-import './Add.dart';
-import './Clock.dart';
+import 'Add.dart';
+import 'Clock.dart';
 import 'dart:convert';
-import './valModel.dart';
+import '../model/valModel.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
